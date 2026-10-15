@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>/ROSshow</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Manrope:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="assets/logo.svg">
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/components.css">
+  </head>
+  <body>
+    <div class="app">
+      <header class="topbar">
+        <div class="brand">
+          <button
+            type="button"
+            class="theme-toggle"
+            id="theme-toggle"
+            aria-pressed="false"
+            aria-label="Включить светлую тему"
+          ></button>
+          <svg class="brand__mark" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M7 17.4 12.4 6.4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path>
+            <path d="M14.4 17.4H20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path>
+          </svg>
+          <p class="brand__name">/ROSshow</p>
+        </div>
+        <p class="topbar__system">rover-01</p>
+        <div class="addmenu">
+          <button
+            type="button"
+            class="addmenu__toggle"
+            id="add-toggle"
+            aria-expanded="false"
+            aria-controls="add-list"
+            aria-label="Добавить"
+          ></button>
+          <div id="add-list" class="addmenu__list" hidden>
+            <button type="button" data-add="lidar">/ лидар</button>
+            <button type="button" data-add="camera">/ камера</button>
+            <button type="button" data-add="sensors">/ датчики</button>
+            <button type="button" data-add="chart">/ скорость</button>
+            <button type="button" data-add="variables">/ переменные</button>
+            <button type="button" data-add="battery">/ аккумулятор</button>
+            <button type="button" data-add="console">/ консоль</button>
+            <button type="button" data-add="diagnostics">/ диагностика</button>
+          </div>
+        </div>
+      </header>
+
+      <main class="workspace">
+        <section id="dashboard" class="dashboard" aria-label="Панель виджетов"></section>
+      </main>
+
+      <div id="transport"></div>
+    </div>
+    <script type="module" src="main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,752 @@
+.widget {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: var(--panel);
+  contain: layout paint;
+}
+
+.widget.is-dragging {
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+.widget.is-drop {
+  outline: 1px solid var(--accent);
+  outline-offset: -1px;
+}
+
+.widget.is-drop-col.is-drop-before {
+  box-shadow: inset 3px 0 0 var(--accent);
+}
+
+.widget.is-drop-col.is-drop-after {
+  box-shadow: inset -3px 0 0 var(--accent);
+}
+
+.widget.is-drop-row.is-drop-before {
+  box-shadow: inset 0 3px 0 var(--accent);
+}
+
+.widget.is-drop-row.is-drop-after {
+  box-shadow: inset 0 -3px 0 var(--accent);
+}
+
+.widget.is-fullscreen {
+  position: fixed;
+  z-index: 25;
+  inset: 56px 8px 64px;
+  border-radius: 4px;
+  background: var(--panel-solid);
+}
+
+.widget.is-fullscreen .widget__edge {
+  display: none;
+}
+
+.widget__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-height: 36px;
+  padding: 4px 4px 4px 10px;
+  border-bottom: 1px solid var(--line);
+  background: color-mix(in srgb, var(--widget-head) 72%, transparent);
+  cursor: grab;
+}
+
+.widget__header:active {
+  cursor: grabbing;
+}
+
+.widget__heading {
+  min-width: 0;
+}
+
+.widget__title {
+  margin: 0;
+  overflow: hidden;
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.widget__topic {
+  margin: 1px 0 0;
+  overflow: hidden;
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.widget__actions {
+  display: flex;
+  flex-shrink: 0;
+  gap: 2px;
+}
+
+.widget__action {
+  display: grid;
+  width: 26px;
+  height: 26px;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  border-radius: 2px;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.widget__action svg {
+  width: 15px;
+  height: 15px;
+}
+
+.widget__action:hover {
+  background: var(--hover);
+  color: var(--text);
+}
+
+.widget__action--close:hover {
+  color: var(--danger);
+}
+
+.widget__body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+  padding: 8px;
+  overflow: auto;
+  background: var(--panel);
+}
+
+.widget__settings {
+  position: absolute;
+  top: 38px;
+  right: 8px;
+  z-index: 6;
+  min-width: 210px;
+  padding: 6px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: var(--menu);
+  box-shadow: var(--shadow);
+}
+
+.settings__row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 4px;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.settings__empty {
+  margin: 0;
+  padding: 6px 4px;
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+
+.widget__edge {
+  position: absolute;
+  z-index: 3;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+.widget__edge--n,
+.widget__edge--s {
+  right: 10px;
+  left: 10px;
+  height: 10px;
+  cursor: ns-resize;
+}
+
+.widget__edge--n {
+  top: 0;
+}
+
+.widget__edge--s {
+  bottom: 0;
+}
+
+.widget__edge--e,
+.widget__edge--w {
+  top: 10px;
+  bottom: 10px;
+  width: 10px;
+  cursor: ew-resize;
+}
+
+.widget__edge--e {
+  right: 0;
+}
+
+.widget__edge--w {
+  left: 0;
+}
+
+.widget__edge:hover,
+.widget__edge:focus-visible {
+  background: color-mix(in srgb, var(--accent) 40%, transparent);
+}
+
+.chart,
+.lidar {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+}
+
+.chart__value {
+  display: flex;
+  flex-shrink: 0;
+  align-items: baseline;
+  gap: 8px;
+  margin: 0;
+  color: var(--accent);
+  font-family: var(--mono);
+  font-size: 1.35rem;
+  font-weight: 500;
+}
+
+.chart__unit {
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+
+.chart__svg {
+  display: block;
+  flex: 1;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  min-height: 0;
+  height: 100%;
+}
+
+.sensors {
+  display: grid;
+  width: 100%;
+  min-width: 0;
+}
+
+.sensors thead,
+.sensors tbody,
+.sensors tr {
+  display: contents;
+}
+
+.sensors--paths {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) max-content;
+}
+
+.sensors--diag {
+  grid-template-columns: minmax(0, 1.2fr) max-content minmax(0, 1fr);
+}
+
+.sensors--pair {
+  grid-template-columns: minmax(0, 1fr) max-content;
+}
+
+.sensors th {
+  padding: 0 6px 6px;
+  color: var(--muted);
+  font-size: 0.68rem;
+  font-weight: 500;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.sensors td:not(.sensors__value),
+.sensors th:not(.sensors__value) {
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.sensors__fit {
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.sensors__fit.is-tail {
+  direction: rtl;
+  text-align: left;
+  text-overflow: ellipsis;
+}
+
+.sensors td {
+  padding: 6px;
+  border-top: 1px solid var(--line);
+  font-size: 0.8rem;
+}
+
+.sensors__topic,
+.sensors__value {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+}
+
+.sensors__topic {
+  color: var(--muted);
+}
+
+.sensors__value {
+  color: var(--accent);
+  text-align: right;
+  white-space: nowrap;
+}
+
+.sensors tr.is-warn .sensors__value {
+  color: var(--warn);
+}
+
+.sensors tr.is-error .sensors__value {
+  color: var(--danger);
+}
+
+.chart__value.is-low {
+  color: var(--warn);
+}
+
+.battery__bar {
+  display: block;
+  height: 6px;
+  margin: 4px 0 8px;
+  border-radius: 2px;
+  background: rgba(242, 243, 245, 0.08);
+}
+
+.battery__bar span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--accent);
+}
+
+.console {
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+  overflow: auto;
+  list-style: none;
+  font-family: var(--mono);
+  font-size: 0.68rem;
+}
+
+.console__line {
+  display: block;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.console__head {
+  display: flex;
+  min-width: 0;
+  gap: 8px;
+  margin: 0 0 4px;
+}
+
+.console__code {
+  margin: 0;
+  color: var(--text);
+  line-height: 1.45;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.console__name {
+  min-width: 0;
+  overflow: hidden;
+  color: var(--muted);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.console__time {
+  color: var(--muted);
+}
+
+.console__line--warn .console__level {
+  color: var(--warn);
+}
+
+.console__line--error .console__level,
+.console__line--fatal .console__level {
+  color: var(--danger);
+}
+
+.console__line--info .console__level,
+.console__line--debug .console__level {
+  color: var(--accent);
+}
+
+.lidar__stage {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+}
+
+.lidar__tools {
+  position: absolute;
+  z-index: 2;
+  top: 8px;
+  right: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin: 0;
+  padding: 4px;
+  border: 1px solid rgba(242, 243, 245, 0.2);
+  border-radius: 6px;
+  background: rgba(8, 9, 12, 0.28);
+  backdrop-filter: blur(8px);
+}
+
+[data-theme="light"] .lidar__tools {
+  border-color: rgba(18, 20, 26, 0.16);
+  background: rgba(255, 255, 255, 0.32);
+}
+
+.lidar__tool {
+  display: grid;
+  width: 28px;
+  height: 26px;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  border-radius: 3px;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.lidar__tool svg {
+  width: 15px;
+  height: 15px;
+}
+
+.lidar__tool[aria-pressed="true"],
+.lidar__tool:hover {
+  color: var(--text);
+  border-color: color-mix(in srgb, var(--accent) 55%, transparent);
+}
+
+.lidar__tool[aria-pressed="true"] {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+
+.lidar__view {
+  touch-action: none;
+}
+
+.lidar__view[data-tool="cursor"] {
+  cursor: default;
+}
+
+.lidar__view[data-tool="move"] {
+  cursor: grab;
+}
+
+.lidar__view[data-tool="scale"] {
+  cursor: ns-resize;
+}
+
+.lidar__view[data-tool="tilt"] {
+  cursor: grab;
+}
+
+.drop-line {
+  position: fixed;
+  z-index: 40;
+  pointer-events: none;
+  border-radius: 2px;
+  background: var(--accent);
+}
+
+.camera__feed,
+.lidar__view {
+  display: block;
+  flex: 1;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  min-height: 0;
+  height: 100%;
+  border-radius: 2px;
+  background: #07080c;
+}
+
+[data-theme="light"] .lidar__view {
+  background: #d4d8e0;
+}
+
+[data-theme="light"] .lidar__scale {
+  background: linear-gradient(
+    90deg,
+    rgb(153, 27, 27),
+    rgb(154, 52, 18) 18%,
+    rgb(133, 77, 14) 36%,
+    rgb(6, 95, 70) 54%,
+    rgb(3, 105, 161) 72%,
+    rgb(29, 78, 216) 86%,
+    rgb(76, 29, 149)
+  );
+}
+
+.lidar__scale {
+  flex-shrink: 0;
+  height: 6px;
+  margin-top: 8px;
+  border-radius: 2px;
+  background: linear-gradient(
+    90deg,
+    rgb(231, 76, 60),
+    rgb(243, 156, 18) 18%,
+    rgb(241, 196, 15) 36%,
+    rgb(46, 204, 113) 54%,
+    rgb(34, 168, 220) 72%,
+    rgb(59, 76, 192) 86%,
+    rgb(88, 28, 135)
+  );
+}
+
+.lidar__note {
+  display: flex;
+  flex-shrink: 0;
+  justify-content: space-between;
+  margin: 4px 0 0;
+  color: var(--muted);
+  font-size: 0.68rem;
+}
+
+.transport {
+  display: grid;
+  grid-template-columns: minmax(160px, 220px) auto auto auto minmax(80px, 1fr) auto;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-top: 1px solid var(--line);
+  background: var(--chrome);
+}
+
+.transport__record {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.transport__record span {
+  color: var(--muted);
+  font-size: 0.66rem;
+}
+
+.transport__select {
+  width: 100%;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  font-size: 0.82rem;
+  cursor: pointer;
+}
+
+.transport__button,
+.transport__play {
+  display: grid;
+  width: 32px;
+  height: 32px;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  border-radius: 4px;
+  background: var(--hover);
+  color: var(--text);
+  cursor: pointer;
+}
+
+.transport__button svg,
+.transport__play svg {
+  width: 15px;
+  height: 15px;
+}
+
+.transport__button:hover {
+  background: var(--hover-strong);
+}
+
+.transport__play {
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+
+.transport__play[aria-pressed="true"] {
+  background: transparent;
+  color: var(--accent);
+  box-shadow: inset 0 0 0 1px var(--accent);
+}
+
+.transport__seek {
+  width: 100%;
+  min-width: 0;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+
+.transport__clock {
+  margin: 0;
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  text-align: right;
+}
+
+.transport__now {
+  display: inline-block;
+  min-width: 4.5ch;
+  text-align: right;
+}
+
+@media (max-width: 900px) {
+  .transport {
+    grid-template-columns: minmax(0, 1fr) auto auto auto;
+  }
+
+  .transport__seek,
+  .transport__clock {
+    grid-column: 1 / -1;
+  }
+
+  .transport__clock {
+    text-align: left;
+  }
+}
+
+.dashboard--stack {
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.dashboard--stack .widget {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  margin: 0 0 8px;
+}
+
+.dashboard--stack .widget__body {
+  flex: 0 0 auto;
+  overflow: visible;
+}
+
+.dashboard--stack .widget[data-kind="lidar"],
+.dashboard--stack .widget[data-kind="camera"] {
+  height: 260px;
+}
+
+.dashboard--stack .widget[data-kind="lidar"] .widget__body,
+.dashboard--stack .widget[data-kind="camera"] .widget__body {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.dashboard--stack .chart__svg {
+  flex: none;
+  height: 150px;
+}
+
+.dashboard--stack .console {
+  flex: none;
+  min-height: auto;
+  overflow: visible;
+}
+
+.dashboard--stack .widget.is-fullscreen {
+  position: fixed;
+  width: auto;
+  height: auto;
+  margin: 0;
+}
+
+@media (max-width: 720px) {
+  .widget__header {
+    gap: 4px;
+    min-height: 32px;
+    padding: 2px 2px 2px 8px;
+  }
+
+  .widget__action {
+    width: 24px;
+    height: 24px;
+  }
+
+  .widget__body {
+    padding: 6px;
+  }
+
+  .chart__value {
+    font-size: 1.15rem;
+  }
+
+  .sensors th {
+    padding: 0 4px 4px;
+  }
+
+  .sensors td {
+    padding: 4px;
+  }
+
+  .dashboard--stack .widget {
+    margin-bottom: 6px;
+  }
+
+  .dashboard--stack .widget[data-kind="lidar"],
+  .dashboard--stack .widget[data-kind="camera"] {
+    height: 220px;
+  }
+
+  .transport {
+    gap: 6px;
+    padding: 6px 8px;
+  }
+
+  .transport__button,
+  .transport__play {
+    width: 28px;
+    height: 28px;
+  }
+
+  .widget__settings {
+    max-width: calc(100% - 16px);
+  }
+}
