@@ -8,7 +8,7 @@
   border: 1px solid var(--line);
   border-radius: 4px;
   background: var(--panel);
-  contain: layout paint;
+  contain: layout;
 }
 
 .widget.is-dragging {
@@ -122,6 +122,7 @@
 }
 
 .widget__body {
+  position: relative;
   display: flex;
   flex: 1;
   flex-direction: column;
@@ -491,13 +492,14 @@
 
 .camera__feed,
 .lidar__view {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
   display: block;
-  flex: 1;
   width: 100%;
-  max-width: 100%;
-  min-width: 0;
-  min-height: 0;
   height: 100%;
+  max-width: 100%;
+  max-height: 100%;
   border-radius: 2px;
   background: #07080c;
 }
