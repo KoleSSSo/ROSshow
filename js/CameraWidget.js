@@ -81,10 +81,11 @@ export class CameraWidget extends UIComponent {
       canvas.width = bitmapWidth;
       canvas.height = bitmapHeight;
     }
-    canvas.style.width = "100%";
-    canvas.style.height = "100%";
 
-    const context = this.#context ?? canvas.getContext("2d", { alpha: false });
+    const context = this.#context ?? canvas.getContext("2d");
+    if (!context) {
+      return;
+    }
     this.#context = context;
     context.setTransform(ratio, 0, 0, ratio, 0, 0);
 
